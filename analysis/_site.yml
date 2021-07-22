@@ -1,7 +1,7 @@
-name: "wftest"
+name: wftest
 output_dir: ../docs
 navbar:
-  title: "wftest"
+  title: wftest
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/NERC-CEH/wftest
 output:
   workflowr::wflow_html:
     toc: yes
