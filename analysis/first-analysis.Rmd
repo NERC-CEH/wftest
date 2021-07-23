@@ -25,7 +25,7 @@ wflow_git_push()
 wflow_open("analysis/first-analysis.Rmd")
 wflow_status()
 wflow_build()
-wflow_publish(c("/data/life_tables.xlsx", 
+wflow_publish(c("C:/Users/plevy/Documents/wftest/data/life_tables.xlsx", 
                 "first-analysis.Rmd"),
               "Describe life table approach")
 wflow_publish("analysis/index.Rmd",
