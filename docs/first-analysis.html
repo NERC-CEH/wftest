@@ -382,7 +382,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-07-22
+<strong>Last updated:</strong> 2021-07-23
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -473,16 +473,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomNERCCEHwftesttree9d8bbcb5c684e5e71b241ad81ef50ae1ab28f4f3targetblank9d8bbcba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/NERC-CEH/wftest/tree/9d8bbcb5c684e5e71b241ad81ef50ae1ab28f4f3" target="_blank">9d8bbcb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomNERCCEHwftesttree63eace4df65c7fc3fdcad1882ab5b69f35a96350targetblank63eace4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/NERC-CEH/wftest/tree/63eace4df65c7fc3fdcad1882ab5b69f35a96350" target="_blank">63eace4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomNERCCEHwftesttree9d8bbcb5c684e5e71b241ad81ef50ae1ab28f4f3targetblank9d8bbcba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomNERCCEHwftesttree63eace4df65c7fc3fdcad1882ab5b69f35a96350targetblank63eace4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/NERC-CEH/wftest/tree/9d8bbcb5c684e5e71b241ad81ef50ae1ab28f4f3" target="_blank">9d8bbcb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/NERC-CEH/wftest/tree/63eace4df65c7fc3fdcad1882ab5b69f35a96350" target="_blank">63eace4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -533,6 +533,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/NERC-CEH/wftest/blob/63eace4df65c7fc3fdcad1882ab5b69f35a96350/analysis/first-analysis.Rmd" target="_blank">63eace4</a>
+</td>
+<td>
+ADCEH
+</td>
+<td>
+2021-07-23
+</td>
+<td>
+Describe life table approach
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/NERC-CEH/wftest/ebb57d504c9b96ce93105474bed59a2fe357c4ec/docs/first-analysis.html" target="_blank">ebb57d5</a>
+</td>
+<td>
+ADCEH
+</td>
+<td>
+2021-07-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/NERC-CEH/wftest/blob/9d8bbcb5c684e5e71b241ad81ef50ae1ab28f4f3/analysis/first-analysis.Rmd" target="_blank">9d8bbcb</a>
 </td>
 <td>
@@ -552,11 +586,150 @@ Add my first analysis
 </div>
 </div>
 </div>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>Here is another file</p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>[1] &quot;C:/Users/plevy/Documents/wftest&quot;</code></pre>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This notebooks document the development of using the concept of life tables in modelling land-use change. In the current procedure, we firstly estimate the <span class="math inline">\(B\)</span> matrix each year by MCMC, then estimate where these land-use changes take place in a separate step. This second step uses static maps of likelihood for each land use. That is, for each year, we have a raster containing the likelihood of a given land-use occuring in each cell. This is based on observed data; if several data sets agree that a given cell is used for crops in a given year, there is a high likelihood of any new cropland being placed there by the algorithm (if it is not already cropland). However, these likelihood maps are static: they vary over time according to the data, but they are the same in every simulation. What this misses is the dependence of land-use change on prior history in the grid cell. There are a few cases where this is important. Most importantly, there is rotational grassland, which is used for arable crops for a number of years, before being returned to grassland on a repeating cycle. Thus, the likelihood of grassland changing to cropland is higher for a four-year old grassland than a 50-year old grassland. This phenomenon is not well captured in the current method. For forests, deforestation may be more likely to occur where the trees are at a commercially harvestable age, so the likelihood of transition is not constant, but peaks at around 40-60 years. More generally, land use shows inertia, and change is less likely where no change has happened before.</p>
+<p>To capture such “memory” effects (i.e. that the time since past land-use change affects the likelihood of current land-use change), we can use an approach borrowed from population modelling based on “life tables”. In the population modelling context, life tables are a set of age-specific mortality rates. The same idea is referred to as survival analysis, reliability analysis, ot time-to-event analysis in various domains. Here, we are modelling the “survival” of land under a given continuous usage. Using the population analogy, a forest is “born” when a grid cell is afforested (from any other previous land use), and “dies” when it is deforested (converted to any other previous land use). Similarily, the same applies when areas of other land uses are created or destroyed. We can think of this as six populations (woods, cropland, grassland, rough grazing, urban or other land uses), each of which has a specific life table. In this context, rather than mortality rates, the life table is the set of age-specific probabilities of conversion to other uses. So rather than a single dimension, each life table has six columns, for the probabilities to conversion to each of the five other land uses, plus the probability of remaining unchanged.</p>
+</div>
+<div id="illustration-with-dummy-data" class="section level1">
+<h1>Illustration with dummy data</h1>
+<p>To illustrate the idea, we can make up some dummy data which shows how this might work.</p>
+<p>The life table for grassland over the first ten years might look like the below. The mortality/transition probabilities are usually denoted <span class="math inline">\(\lambda\)</span>.</p>
+<pre class="r"><code>knitr::kable(data.frame(time = 1:10, a_lamda[1:10, u_from, 1:n_u]))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">time</th>
+<th align="right">woods</th>
+<th align="right">crops</th>
+<th align="right">grass</th>
+<th align="right">rough</th>
+<th align="right">urban</th>
+<th align="right">other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.93</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.01</td>
+<td align="right">0.05</td>
+<td align="right">0.91</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.01</td>
+<td align="right">0.10</td>
+<td align="right">0.86</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.01</td>
+<td align="right">0.12</td>
+<td align="right">0.84</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.01</td>
+<td align="right">0.06</td>
+<td align="right">0.90</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.93</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.93</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.93</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.93</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.93</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>This shows that grassland will typically remain grassland, but that it has a higher chance of being converted to cropland in years 2-5. The chance of other conversions remains constant. For efficient computation, we can store the <span class="math inline">\(\lambda\)</span> values in a three-dimensional array, which allows us to access the values, referencing by index.</p>
+<pre class="r"><code># e.g. if we want to know the prob of 4-y old grass turning to crop
+t = 4; u_from = 3; u_to = 2
+a_lamda[t, u_from, u_to]</code></pre>
+<pre><code>[1] 0.12</code></pre>
+<p>We can plot the grassland dummy data as an example.</p>
+<pre class="r"><code>df &lt;- df3
+df$u &lt;- NULL
+df$t &lt;- as.numeric(rownames(df))
+df &lt;- pivot_longer(df,
+  cols = woods:other,
+  names_to = &quot;u&quot;,
+  values_to = &quot;lamda&quot;)
+  
+p &lt;- ggplot(df, aes(t, lamda, colour = u))
+p &lt;- p + geom_line()
+#p &lt;- p + facet_wrap(~ u, scale = &quot;fixed&quot;)
+p</code></pre>
+<p><img src="figure/first-analysis.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="next-steps" class="section level1">
+<h1>Next steps</h1>
+<p>To use this idea in the LUC Tracking project, there are several steps required.</p>
+<ol style="list-style-type: decimal">
+<li><p>Establish the life tables, based on observed data. This requires writing functions to extract and analyse all the “life spans” in a set of vectors or <span class="math inline">\(U\)</span> stack object. This means counting frequency distribution of all the length of all contiguous land uses.</p></li>
+<li><p>Establishing the age-of-land-use for the starting point map (2019).</p></li>
+<li><p>Adapting the code in DA4_SampleU.Rmd to use the life tables dynamically to calculate the likelihoods <span class="math inline">\(\mathcal{L}\)</span> in sampling <span class="math inline">\(U\)</span>, going back in time from 2019. Previously, this was done in a single step in DA3_LikelihoodU.Rmd, to calculate a number of static maps. This would now need to be done dynamically, muliplying the spatial likelihood term <span class="math inline">\(\mathcal{L}_{static}\)</span> with the dynamic likelihood term <span class="math inline">\(\mathcal{L}_{dynamic}\)</span> (depending on the age of the current land use). Because <span class="math inline">\(\mathcal{L}_{dynamic}\)</span> depends only on the age (and not the whole previous history), we simply need to update a raster containing the age of each land use each year. This will start with the estimate from step 2 and work backwards.</p></li>
+</ol>
+<pre><code>Computation time (excl. render): 3.37 sec elapsed</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -582,18 +755,28 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] workflowr_1.6.2
+ [1] here_1.0.1      tictoc_1.0.1    readxl_1.3.1    abind_1.4-5    
+ [5] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.5     purrr_0.3.4    
+ [9] readr_1.4.0     tidyr_1.1.3     tibble_3.1.0    ggplot2_3.3.3  
+[13] tidyverse_1.3.1
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7        whisker_0.4       knitr_1.31        magrittr_2.0.1   
- [5] R6_2.5.0          rlang_0.4.10      fansi_0.4.2       stringr_1.4.0    
- [9] tools_4.0.4       xfun_0.22         utf8_1.1.4        git2r_0.28.0     
-[13] jquerylib_0.1.3   htmltools_0.5.1.1 ellipsis_0.3.2    rprojroot_2.0.2  
-[17] yaml_2.2.1        digest_0.6.27     tibble_3.1.0      lifecycle_1.0.0  
-[21] crayon_1.4.1      later_1.1.0.1     sass_0.3.1        vctrs_0.3.8      
-[25] promises_1.2.0.1  fs_1.5.0          glue_1.4.2        evaluate_0.14    
-[29] rmarkdown_2.7     stringi_1.5.3     bslib_0.2.4       compiler_4.0.4   
-[33] pillar_1.6.1      jsonlite_1.7.2    httpuv_1.5.5      pkgconfig_2.0.3  </code></pre>
+ [1] Rcpp_1.0.7        lubridate_1.7.10  ps_1.6.0          assertthat_0.2.1 
+ [5] rprojroot_2.0.2   digest_0.6.27     utf8_1.1.4        R6_2.5.0         
+ [9] cellranger_1.1.0  backports_1.2.1   reprex_2.0.0      evaluate_0.14    
+[13] highr_0.8         httr_1.4.2        pillar_1.6.1      rlang_0.4.10     
+[17] rstudioapi_0.13   whisker_0.4       jquerylib_0.1.3   rmarkdown_2.7    
+[21] labeling_0.4.2    munsell_0.5.0     broom_0.7.6       compiler_4.0.4   
+[25] httpuv_1.5.5      modelr_0.1.8      xfun_0.22         pkgconfig_2.0.3  
+[29] htmltools_0.5.1.1 tidyselect_1.1.0  workflowr_1.6.2   fansi_0.4.2      
+[33] crayon_1.4.1      dbplyr_2.1.1      withr_2.4.2       later_1.1.0.1    
+[37] grid_4.0.4        jsonlite_1.7.2    gtable_0.3.0      lifecycle_1.0.0  
+[41] DBI_1.1.1         git2r_0.28.0      magrittr_2.0.1    scales_1.1.1     
+[45] cli_2.5.0         stringi_1.5.3     farver_2.1.0      fs_1.5.0         
+[49] promises_1.2.0.1  xml2_1.3.2        bslib_0.2.4       ellipsis_0.3.2   
+[53] generics_0.1.0    vctrs_0.3.8       tools_4.0.4       glue_1.4.2       
+[57] hms_1.0.0         yaml_2.2.1        colorspace_2.0-0  rvest_1.0.0      
+[61] knitr_1.31        haven_2.4.1       sass_0.3.1       </code></pre>
 </div>
 </div>
 
